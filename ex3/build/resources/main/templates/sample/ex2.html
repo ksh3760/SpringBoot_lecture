@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <!-- 반복문 처리 -->
+    <ul>
+        <li th:each="dto : ${list}">
+            [[${dto}]]
+        </li>
+    </ul>
+
+    <!--  반복문의 상태(state)객체  -->
+    <ul>
+        <li th:each="dto, state : ${list}">
+            [[${state.index}]] --- [[${dto}]]
+        </li>
+    </ul>
+
+    <!--  제어문 처리  -->
+    <!--  sno의 값이 5의 배수들만 출력  -->
+    <ul>
+        <li th:each="dto, state : ${list}" th:if="${dto.sno % 5 == 0}">
+            [[${dto}]]
+        </li>
+    </ul>
+
+    <!--  sno가 5로 나눈 나머지가 0인 경우에는 sno만을 출략하고, 그렇지 않다면 SampleDTO의 first를 출력  -->
+    <ul>
+        <li th:each="dto, state : ${list}">
+            <span th:if="${dto.sno % 5 == 0}" th:text="${'--------------------' + dto.sno}"></span>
+            <span th:unless="${dto.sno % 5 == 0}" th:text="${dto.first}"></span>
+        </li>
+    </ul>
+
+    <!--  css 적용  -->
+    <!--  sno를 5로 나눈 나머지가 0인 경우에만 css적용  -->
+    <style>
+        .target {
+            background-color: #ff0000;
+        }
+    </style>
+
+    <ul>
+        <li th:each="dto, state : ${list}" th:class="${dto.sno % 5 == 0}?'target'" th:text="${dto}"></li>
+    </ul>
+
+    <!--  th:block  -->
+    <ul>
+        <th:block th:each="dto: ${list}">
+            <li th:text="${dto.sno % 5 == 0}?${dto.sno}:${dto.first}"></li>
+        </th:block>
+    </ul>
+
+
+</body>
+</html>
