@@ -14,5 +14,11 @@
         </li>
     </ul>
 
+    <ul>
+        <li th:each="dto : ${list}">
+            [[${dto.sno}]] --- [[${#temporals.format(dto.regTime, 'yyyy/MM/dd')}]]
+        </li>
+    </ul>
+
 </body>
 </html>
